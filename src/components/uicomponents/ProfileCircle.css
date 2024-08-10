@@ -1,0 +1,64 @@
+/* ProfileCircle.css */
+/* .container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
+  padding: 30px;
+  z-index: 100;
+} */
+/* .overlay {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  top: 50px;
+  left: 50px;
+  bottom: 50px;
+  right: 50px;
+  background-color: hsla(219, 71%, 56%, 0.178);
+  border: 3px solid #377dff;
+  border-radius: 10px;
+  z-index: 100;
+} */
+
+.profile-circle-container {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 999;
+  }
+  
+  .profile-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  /* .life-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #09c06b;
+    animation: life-bar-fill 10s linear infinite;
+  }
+  
+  @keyframes life-bar-fill {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  } */
+  

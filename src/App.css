@@ -1,0 +1,65 @@
+/* src/App.css */
+.App {
+  height: 100vh;
+  width: 100vw;
+  background-image: url('assets/world.jpeg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  /* opacity: 0.2; */
+}
+
+.enter-button {
+  background-color: rgba(17, 17, 31, 0.1);
+  color: white;
+  border: 0.5px solid white;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: background-color 0.3s ease;
+  width: 400px;
+}
+
+.enter-button:hover {
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  color: orange;
+  border: 1px solid orange;
+}
+.enter-button:active {
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  border: 2px solid orange;
+}
+.wallet-btn {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+}
+/* .wallet-btn:first-child {
+  width: 200px;
+  background-color: black;
+}
+.enter-button {
+  background-color: red;
+} */
