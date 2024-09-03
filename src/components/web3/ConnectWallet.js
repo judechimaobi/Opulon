@@ -75,7 +75,7 @@ const ConnectWallet = () => {
     <div>
       {!connected ? (
         <div className='connect-btn-box'>
-          <button onClick={connectWallet} className='connect-wallet-btn'>Enter the Elysium</button>
+          <button onClick={connectWallet} className='connect-wallet-btn'>Enter the Opulon</button>
         </div>
       ) : (
         <div className='connect-btn-box'>

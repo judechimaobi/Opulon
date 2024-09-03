@@ -1,0 +1,137 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.questContainer {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  padding: 20px;
+  color: #fff;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.pageTitle {
+  font-size: 32px;
+  font-family: azonix;
+  text-align: left;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.questInnerContainer {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 20px;
+}
+
+.questList, .questDetails {
+  border: 1px solid #377dff;
+  border-radius: 10px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 70vh; /* Sets max height to 50% of the viewport height */
+}
+
+.questList {
+  width: 30%;
+  background-color: rgba(0, 16, 87, 0.7);
+}
+
+.questDetails {
+  width: 70%;
+  background-color: rgba(0, 16, 87, 0.4);
+}
+
+.questList::-webkit-scrollbar,
+.questDetails::-webkit-scrollbar {
+  width: 8px;
+}
+
+.questList::-webkit-scrollbar-track,
+.questDetails::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.questList::-webkit-scrollbar-thumb,
+.questDetails::-webkit-scrollbar-thumb {
+  background: #377dff;
+  border-radius: 10px;
+}
+
+.questList::-webkit-scrollbar-thumb:hover,
+.questDetails::-webkit-scrollbar-thumb:hover {
+  background: #265bba;
+}
+
+
+.listItem {
+  margin-bottom: 10px;
+  padding: 15px;
+  font-size: 18px;
+  /* background-color: hsla(219, 71%, 56%, 0.4); */
+  border: 1px solid #377dff;
+  border-radius: 10px;
+  color: #fff;
+}
+.listItem:hover {
+  background: linear-gradient(135deg, hsla(219, 100%, 39%, 0.8) 0%, hsla(219, 100%, 64%, 0.8) 100% );
+  cursor: pointer;
+  color: #fff;
+}
+.listItem.active {
+  background: linear-gradient(135deg, hsla(219, 100%, 39%, 0.8) 0%, hsla(219, 100%, 64%, 0.8) 100% );
+}
+
+.questTitle {
+  padding: 20px;
+  padding-left: 0;
+  font-family: azonix;
+  font-size: 22px;
+  text-align: left;
+  border-bottom: 1px solid #377dff;
+}
+.questSubTitle {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-left: 0;
+  font-family: azonix;
+  font-size: 18px;
+  text-align: left;
+}
+.desc {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+.questBtn {
+  width: 200px;
+  padding: 15px;
+  background-color: rgba(223, 188, 71, 1);
+  border: 1px solid rgba(223, 188, 71, 1);
+  border-radius: 50px;
+  font-family: azonix, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: rgba(0, 16, 87, 1);
+  box-shadow: 0 0 20px rgba(223, 188, 71, 0.8);
+  transition: all 0.3s ease;
+}
+
+.questBtn:hover {
+  box-shadow: 0 0 30px rgba(223, 188, 71, 1), 0 0 60px rgba(223, 188, 71, 0.8);
+  margin-left: 10px;
+}
+
+.questBtn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 10px rgba(223, 188, 71, 0.8), 0 0 20px rgba(223, 188, 71, 0.6);
+}

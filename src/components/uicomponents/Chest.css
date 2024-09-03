@@ -1,0 +1,144 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  
+  .chestContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: max-content;
+    padding: 20px;
+    color: #fff;
+    font-size: 20px;
+    overflow-y: auto;
+    max-height: 85vh;
+  }
+  
+  .pageTitle {
+    font-size: 32px;
+    font-family: azonix;
+    text-align: left;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ffffff;
+  }
+  
+  .chestInnerContainer {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+    gap: 20px;
+  }
+  .chestBoard {
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    min-height: 300px;
+    justify-content: left;
+    padding: 20px;
+    background: linear-gradient(135deg, hsla(219, 100%, 39%, 0.8) 0%, hsla(219, 100%, 64%, 0.8) 100% );
+
+  }
+  .avatarImgContainer {
+    width: 30%;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    /* height: 300px; */
+    display: flex;
+
+    /* align-items: center;
+    justify-content: center; */
+  }
+  .playerAvatar {
+    width: 50%;
+  }
+  .playerDetails {
+    width: 70%;
+  }
+  .playerDetails ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .col-1, .col-2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 20px;
+    overflow-y: auto;
+    /* max-height: 70vh; */
+    border-radius: 10px;
+  }
+  .col-1 {
+    width: 40%;
+  }
+  .col-2 {
+    width: 60%;
+  }
+  .col-1::-webkit-scrollbar,
+  .col-2::-webkit-scrollbar {
+    width: 4px;
+  }
+  .col-1::-webkit-scrollbar-track,
+  .col-2::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  .col-1::-webkit-scrollbar-thumb,
+  .col-2::-webkit-scrollbar-thumb {
+    background: #377dff;
+    border-radius: 10px;
+  }
+  .col-1::-webkit-scrollbar-thumb:hover,
+  .col-2::-webkit-scrollbar-thumb:hover {
+    background: #265bba;
+  }
+
+  .colItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(0, 16, 87, 0.7);
+    border: 1px solid #377dff;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .mainItem {
+    background: linear-gradient(45deg, rgb(26, 88, 221), rgba(248, 174, 35, 0.7));
+    border: 1px solid rgba(255, 255, 0, 0.3);
+  }
+  .opCoin {
+    width: 30%;
+  }
+
+
+  .mainItemTitle, .gameTag {
+    padding: 20px;
+    padding-left: 0;
+    font-family: azonix;
+    font-size: 32px;
+    text-align: left;
+  }
+  /* .gameTag {
+
+  } */
+  .chestSubTitle {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-left: 0;
+    font-family: azonix;
+    font-size: 18px;
+    text-align: left;
+  }
+  

@@ -20,6 +20,7 @@ const ProfileCircle = ({ profileImage, lifeBarColor, showProfileNav, setShowProf
 
 
   const handleProfileCircleClick = () => {
+    // console.log(setShowProfileNav);
     menuClickSfx();
 
     if (!showProfileNav) {
@@ -28,28 +29,25 @@ const ProfileCircle = ({ profileImage, lifeBarColor, showProfileNav, setShowProf
       }, 100);
     }
     setShowProfileNav(!showProfileNav);
+    // console.log("showProfileNav: ", showProfileNav);
   };
 
   return (
-    // <div className="container">    
-    //   <div className="overlay">
-        <div className="profile-circle-container">
-          <KeyPressHandler pressedKey="P" callBack={handleProfileCircleClick} />
-          {/* <ProfileNav /> */}
-          <div
-            className="profile-circle"
-            onClick={handleProfileCircleClick}
-            style={{
-              backgroundImage: `url(${profileImage})`,
-              border: `8px solid ${lifeBarColor}`,
-            }}
-          >
-            <div className="life-bar" style={{ backgroundColor: lifeBarColor }} />
-          </div>
-          {/* {showProfileNav && <ProfileNav />} */}
-        </div>
-      // </div>
-    // </div>
+    <div className="profile-circle-container">
+      <KeyPressHandler pressedKey="P" callBack={handleProfileCircleClick} />
+      {/* <ProfileNav /> */}
+      <div
+        className="profile-circle"
+        onClick={handleProfileCircleClick}
+        style={{
+          backgroundImage: `url(${profileImage})`,
+          border: `8px solid ${lifeBarColor}`,
+        }}
+      >
+        <div className="life-bar" style={{ backgroundColor: lifeBarColor }} />
+      </div>
+      {/* {showProfileNav && <ProfileNav />} */}
+    </div>
   );
 };
 

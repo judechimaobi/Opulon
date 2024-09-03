@@ -1,0 +1,36 @@
+.videoContainer {
+    /* border-radius: 20px; */
+    /* border: 1px solid #377dff; */
+    /* box-shadow: 10px 10px 10px 10px #222; */
+    z-index: 1000;
+}
+.video {
+    width: 300px;
+    border-radius: 20px;
+    border: 1px solid #377dff;
+    /* box-shadow: 10px 10px 10px 10px #222; */
+    z-index: 1000;
+}
+.callBtn {
+    width: 200px;
+    padding: 15px;
+    background-color: rgb(14, 228, 164);
+    border: 1px solid rgb(14, 228, 164);
+    border-radius: 50px;
+    font-family: azonix, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 20px rgb(14, 228, 164, 0.8);
+    transition: all 0.3s ease;
+  }
+  
+  .callBtn:hover {
+    box-shadow: 0 0 30px rgb(14, 228, 164), 0 0 60px rgb(14, 228, 164, 0.8);
+    margin-left: 10px;
+  }
+  
+  .callBtn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(223, 188, 71, 0.8), 0 0 20px rgba(223, 188, 71, 0.6);
+  }

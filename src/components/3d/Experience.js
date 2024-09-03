@@ -1,67 +1,166 @@
-import React, { useRef, useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
+
+import React, { useRef, useEffect, useState } from 'react';
+import { extend, Canvas, useFrame, useThree } from '@react-three/fiber';
+import * as THREE from 'three';
 import { OrbitControls, Sphere, Html, useGLTF, useAnimations, Environment, PerspectiveCamera, OrthographicCamera } from '@react-three/drei';
-import { Avatar } from './Avatar';
+// import { Avatar } from './Avatar';
 import { useControls } from 'leva';
-import { City1 } from './City1';
+// import { City1 } from './City1';
 import { Physics, RigidBody } from '@react-three/rapier';
-import { CharacterController } from './CharacterController';
+import { CameraController } from './CameraController.jsx';
 
-const Experience = ({ connected }) => {
-  // const { animation } = useControls({
-  //   animation: {
-  //     value: "idle",
-  //     options: ["walking", "running", "walkBackward", "slowRun", "jump"]
-  //   }
-  // });
-  
+import { useInput } from '../..//hooks/useInput';
+
+
+import { Avatar } from '../avatars/Avatar';
+import AvatarRPMPlay from '../avatars/AvatarRPMPlay';
+
+import { Bifrost } from '../avatars/Bifrost.jsx';
+import { ManInSuit } from '../avatars/ManInSuit';
+import { BoyModel } from '../avatars/BoyModel';
+import { OldMan } from '../avatars/OldMan.jsx';
+import { City1 } from '../avatars/City1.jsx';
+import { CoolMan } from '../avatars/CoolMan.jsx';
+
+
+
+
+function Scene({ connectionState }) {
+  const [avatarPosition, setAvatarPosition] = useState(new THREE.Vector3(0, 0.41, 0));
+  const [avatarRotation, setAvatarRotation] = useState(new THREE.Euler(0, 0, 0));
+
+  const avatarPositionRef = useRef(new THREE.Vector3(0, 0.41, 0));
+  const avatarRotationRef = useRef(new THREE.Euler(0, 0, 0));
+  const input = useInput();
+
+  const updateAvatarTransform = (newPosition, newRotation) => {
+    setAvatarPosition(newPosition);
+    setAvatarRotation(newRotation);
+    avatarPositionRef.current = newPosition;
+    avatarRotationRef.current = newRotation;
+    // console.log("Rotation: ",avatarRotationRef.current);
+  };
+
   return (
-    <Canvas shadows camera={{ position: [-22,3,90], fov: 30 }}>
-      
-      <OrbitControls
-        enableDamping={true}
-        dampingFactor={0.3}
-        // minAzimuthAngle={-Math.PI / 4}
-        // maxAzimuthAngle={Math.PI / 4}
-        minPolarAngle={Math.PI / 6}
-        maxPolarAngle={Math.PI - Math.PI / 1.96}
+    <>
+      <ambientLight intensity={2.7} color="white" />
+      <AvatarRPMPlay
+        position={avatarPosition}
+        rotation={avatarRotation}
+        input={input}
+        updateTransform={updateAvatarTransform}
       />
-      
-      <directionalLight
-        intensity={0.65}
-        castShadow
-        position={[-15, 10, 15]}
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-bias={-0.00005}
-      > 
-        <OrthographicCamera
-          left={-22}
-          right={15}
-          top={10}
-          bottom={-20}
-        />
-      </directionalLight>
+      {/* <Avatar position={avatarPosition} rotation={avatarRotation} input={input} updateTransform={updateAvatarTransform} /> */}
+      {/* <RigidBody type='fixed' position-y={0} colliders='trimesh'> */}
+      {connectionState === 'disconnected' && (<Bifrost />)}
+      {connectionState === 'connected' && (<City1 />)}
+      {/* </RigidBody> */}
+      <OrbitControls />
+      {/* <orthographicCamera position={[0,10,0]} /> */}
+      <CameraController avatarPosition={avatarPosition} avatarRotation={avatarRotation} />
+    </>
+  );
+}
 
-      <ambientLight intensity={0.5} /> 
-      {/* <pointLight position={[3, 0, 17]} intensity={20} color={'orange'} /> */}
-      {/* <directionalLight position={[0, 10, 5]} intensity={0.5} color={'yellow'}  /> */}
-      
-      
-      {/* <Physics debug> */}
-        {/* <CharacterController /> */}
-        <group position-y={0}>
-          <Avatar />
-        </group>
-        {/* <RigidBody type='fixed' colliders='trimesh'> */}
-          <City1 />
-        {/* </RigidBody> */}
-      {/* </Physics> */}
+const Experience = ({ connectionState }) => {
+  
+
+  return (
+    <Canvas shadows camera={{ position: [0, 5, 10], fov: 60 }}>
+      <Physics>
+        <Scene connectionState={connectionState} />
+      </Physics>
     </Canvas>
   );
 };
 
 export default Experience;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const Experience = ({ connected }) => {
+//   // const { animation } = useControls({
+//   //   animation: {
+//   //     value: "idle",
+//   //     options: ["walking", "running", "walkBackward", "slowRun", "jump"]
+//   //   }
+//   // });
+  
+//   return (
+//     <Canvas shadows camera={{ position: [-22,3,90], fov: 30 }}>
+      
+//       <OrbitControls
+//         enableDamping={true}
+//         dampingFactor={0.3}
+//         // minAzimuthAngle={-Math.PI / 4}
+//         // maxAzimuthAngle={Math.PI / 4}
+//         minPolarAngle={Math.PI / 6}
+//         maxPolarAngle={Math.PI - Math.PI / 1.96}
+//       />
+      
+//       <directionalLight
+//         intensity={0.65}
+//         castShadow
+//         position={[-15, 10, 15]}
+//         shadow-mapSize-width={2048}
+//         shadow-mapSize-height={2048}
+//         shadow-bias={-0.00005}
+//       > 
+//         <OrthographicCamera
+//           left={-22}
+//           right={15}
+//           top={10}
+//           bottom={-20}
+//         />
+//       </directionalLight>
+
+//       <ambientLight intensity={0.5} /> 
+//       {/* <pointLight position={[3, 0, 17]} intensity={20} color={'orange'} /> */}
+//       {/* <directionalLight position={[0, 10, 5]} intensity={0.5} color={'yellow'}  /> */}
+      
+      
+//       {/* <Physics debug> */}
+//         {/* <CharacterController /> */}
+//         <group position-y={0}>
+//           <Avatar />
+//         </group>
+//         {/* <RigidBody type='fixed' colliders='trimesh'> */}
+//           <City1 />
+//         {/* </RigidBody> */}
+//       {/* </Physics> */}
+//     </Canvas>
+//   );
+// };
+
+// export default Experience;
 
 
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { useGraph } from '@react-three/fiber';
+import { Canvas, useFrame, useGraph } from '@react-three/fiber';
+// import { useGraph } from '@react-three/fiber';
 import { useAnimations, useFBX, useGLTF } from '@react-three/drei';
 import { SkeletonUtils } from 'three-stdlib';
 import * as THREE from 'three';
-
+import { CapsuleCollider, RigidBody } from '@react-three/rapier';
+import AvatarProfile from './AvatarProfile';
 
 
 function useAnimationLoader(animations, ref) {
@@ -13,7 +14,7 @@ function useAnimationLoader(animations, ref) {
 
   useEffect(() => {
     if (actions && Object.keys(actions).length === animations.length) {
-      console.log("Animations loaded:", Object.keys(actions));
+      // console.log("Animations loaded:", Object.keys(actions));
       setLoaded(true);
     }
   }, []);
@@ -25,8 +26,18 @@ export function Avatar({ position, rotation, input, updateTransform }) {
   const { forward, backward, left, right, shift, jump } = input;
   const currentAction = useRef("");
   const avatarRef = useRef();
+  const [avatarUrl, setAvatarUrl] = useState("models/me.glb");
   
-  const { scene } = useGLTF('models/me.glb');
+  useEffect(() => {
+    const storedAvatarUrl = sessionStorage.getItem("avatarUrl");
+    if (storedAvatarUrl) {
+      setAvatarUrl(storedAvatarUrl);
+    }
+  }, []);
+  
+  console.log(avatarUrl);
+
+  const { scene } = useGLTF(avatarUrl);
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone);
 
@@ -60,27 +71,27 @@ export function Avatar({ position, rotation, input, updateTransform }) {
 
   useEffect(() => {
     if (loaded && actions.idle) {
-      console.log("Attempting to play idle animation");
+      // console.log("Attempting to play idle animation");
       actions.idle.reset().fadeIn(0.2).play();
       currentAction.current = "idle";
-      console.log("Idle animation should be playing now");
+      // console.log("Idle animation should be playing now");
     }
   }, [loaded]);
 
-  useEffect(() => {
-    if (nodes && nodes.Armature) {
-      console.log("Skeleton loaded");
-    } else {
-      console.log("Skeleton not found");
-    }
-  }, [nodes]);
+  // useEffect(() => {
+  //   if (nodes && nodes.Armature) {
+  //     console.log("Skeleton loaded");
+  //   } else {
+  //     console.log("Skeleton not found");
+  //   }
+  // }, [nodes]);
 
-  useEffect(() => {
-    if (loaded && actions.idle) {
-      console.log("Idle animation details:", actions.idle);
-      console.log("Is idle animation attached to model?", actions.idle.getRoot() === nodes.Armature);
-    }
-  }, [loaded, nodes]);
+  // useEffect(() => {
+  //   if (loaded && actions.idle) {
+  //     console.log("Idle animation details:", actions.idle);
+  //     console.log("Is idle animation attached to model?", actions.idle.getRoot() === nodes.Armature);
+  //   }
+  // }, [loaded, nodes]);
   
   // useEffect(() => {
   //   if (avatarRef.current) {
@@ -89,8 +100,8 @@ export function Avatar({ position, rotation, input, updateTransform }) {
   // }, [avatarRef.current]);
   useEffect(() => {
     if (actions.idle) {
-      actions.running.play();
-      console.log(actions.running.play());
+      actions.idle.play();
+      // console.log(actions.idle.play());
       currentAction.current = "idle";
     } else {
       console.warn("Idle animation not found");
@@ -140,21 +151,27 @@ export function Avatar({ position, rotation, input, updateTransform }) {
   });
 
   return (
-    <group >
-      {/* <primitive object={nodes.Armature} rotation={[0, Math.PI, 0]} /> */}
-      <primitive object={nodes.Armature} ref={avatarRef} position={position} rotation={rotation} dispose={null} />
-      <skinnedMesh geometry={nodes.Wolf3D_Hair.geometry} material={materials.Wolf3D_Hair} skeleton={nodes.Wolf3D_Hair.skeleton} />
-      <skinnedMesh geometry={nodes.Wolf3D_Glasses.geometry} material={materials.Wolf3D_Glasses} skeleton={nodes.Wolf3D_Glasses.skeleton} />
-      <skinnedMesh geometry={nodes.Wolf3D_Outfit_Top.geometry} material={materials.Wolf3D_Outfit_Top} skeleton={nodes.Wolf3D_Outfit_Top.skeleton} />
-      <skinnedMesh geometry={nodes.Wolf3D_Outfit_Bottom.geometry} material={materials.Wolf3D_Outfit_Bottom} skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton} />
-      <skinnedMesh geometry={nodes.Wolf3D_Outfit_Footwear.geometry} material={materials.Wolf3D_Outfit_Footwear} skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton} />
-      <skinnedMesh geometry={nodes.Wolf3D_Body.geometry} material={materials.Wolf3D_Body} skeleton={nodes.Wolf3D_Body.skeleton} />
-      <skinnedMesh name="EyeLeft" geometry={nodes.EyeLeft.geometry} material={materials.Wolf3D_Eye} skeleton={nodes.EyeLeft.skeleton} morphTargetDictionary={nodes.EyeLeft.morphTargetDictionary} morphTargetInfluences={nodes.EyeLeft.morphTargetInfluences} />
-      <skinnedMesh name="EyeRight" geometry={nodes.EyeRight.geometry} material={materials.Wolf3D_Eye} skeleton={nodes.EyeRight.skeleton} morphTargetDictionary={nodes.EyeRight.morphTargetDictionary} morphTargetInfluences={nodes.EyeRight.morphTargetInfluences} />
-      <skinnedMesh name="Wolf3D_Head" geometry={nodes.Wolf3D_Head.geometry} material={materials.Wolf3D_Skin} skeleton={nodes.Wolf3D_Head.skeleton} morphTargetDictionary={nodes.Wolf3D_Head.morphTargetDictionary} morphTargetInfluences={nodes.Wolf3D_Head.morphTargetInfluences} />
-      <skinnedMesh name="Wolf3D_Teeth" geometry={nodes.Wolf3D_Teeth.geometry} material={materials.Wolf3D_Teeth} skeleton={nodes.Wolf3D_Teeth.skeleton} morphTargetDictionary={nodes.Wolf3D_Teeth.morphTargetDictionary} morphTargetInfluences={nodes.Wolf3D_Teeth.morphTargetInfluences} />
-    </group>
+    <AvatarProfile object={nodes.Armature} ref={avatarRef} position={position} rotation={rotation} dispose={null} />
   );
 }
 
-useGLTF.preload('models/me.glb');
+// useGLTF.preload('models/me.glb');
+useGLTF.preload(sessionStorage.getItem("avatarUrl"));
+
+{/* <group>
+        <primitive object={nodes.Armature} rotation={[0, Math.PI, 0]} />
+          <primitive object={nodes.Armature} ref={avatarRef} position={position} rotation={rotation} dispose={null} />
+        <RigidBody type='fixed' colliders="ball">
+          <CapsuleCollider args={[0.02, 0.01]} />
+        </RigidBody>
+        <skinnedMesh geometry={nodes.Wolf3D_Hair.geometry} material={materials.Wolf3D_Hair} skeleton={nodes.Wolf3D_Hair.skeleton} />
+        <skinnedMesh geometry={nodes.Wolf3D_Glasses.geometry} material={materials.Wolf3D_Glasses} skeleton={nodes.Wolf3D_Glasses.skeleton} />
+        <skinnedMesh geometry={nodes.Wolf3D_Outfit_Top.geometry} material={materials.Wolf3D_Outfit_Top} skeleton={nodes.Wolf3D_Outfit_Top.skeleton} />
+        <skinnedMesh geometry={nodes.Wolf3D_Outfit_Bottom.geometry} material={materials.Wolf3D_Outfit_Bottom} skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton} />
+        <skinnedMesh geometry={nodes.Wolf3D_Outfit_Footwear.geometry} material={materials.Wolf3D_Outfit_Footwear} skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton} />
+        <skinnedMesh geometry={nodes.Wolf3D_Body.geometry} material={materials.Wolf3D_Body} skeleton={nodes.Wolf3D_Body.skeleton} />
+        <skinnedMesh name="EyeLeft" geometry={nodes.EyeLeft.geometry} material={materials.Wolf3D_Eye} skeleton={nodes.EyeLeft.skeleton} morphTargetDictionary={nodes.EyeLeft.morphTargetDictionary} morphTargetInfluences={nodes.EyeLeft.morphTargetInfluences} />
+        <skinnedMesh name="EyeRight" geometry={nodes.EyeRight.geometry} material={materials.Wolf3D_Eye} skeleton={nodes.EyeRight.skeleton} morphTargetDictionary={nodes.EyeRight.morphTargetDictionary} morphTargetInfluences={nodes.EyeRight.morphTargetInfluences} />
+        <skinnedMesh name="Wolf3D_Head" geometry={nodes.Wolf3D_Head.geometry} material={materials.Wolf3D_Skin} skeleton={nodes.Wolf3D_Head.skeleton} morphTargetDictionary={nodes.Wolf3D_Head.morphTargetDictionary} morphTargetInfluences={nodes.Wolf3D_Head.morphTargetInfluences} />
+        <skinnedMesh name="Wolf3D_Teeth" geometry={nodes.Wolf3D_Teeth.geometry} material={materials.Wolf3D_Teeth} skeleton={nodes.Wolf3D_Teeth.skeleton} morphTargetDictionary={nodes.Wolf3D_Teeth.morphTargetDictionary} morphTargetInfluences={nodes.Wolf3D_Teeth.morphTargetInfluences} />
+      </group> */}

@@ -1,0 +1,19 @@
+.frame-container {
+  width: 70vw; /* 100% of the viewport width */
+  height: 80vh; /* 100% of the viewport height */
+	overflow: hidden;
+}
+
+.frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+	border-radius: 20px;
+	opacity: .9;
+}
+.warning {
+		background-color: #df68a2;
+		padding: 3px;
+		border-radius: 5px;
+		color: white;
+}
