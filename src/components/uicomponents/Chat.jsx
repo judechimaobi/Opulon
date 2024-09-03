@@ -87,9 +87,10 @@ const Chat = () => {
 
 
 
-
-		const userData = { id: socket.id, walletAddress: sessionStorage.getItem('pubKey') };
-
+		const truncatedAddress = sessionStorage.getItem('pubKey') 
+		? `${sessionStorage.getItem('pubKey').slice(0, 10)}....${sessionStorage.getItem('pubKey').slice(-10)}`
+		: '';
+		const userData = { id: socket.id, walletAddress: sessionStorage.getItem('pubKey'), userId: truncatedAddress };
 		socket.emit('user_login', userData); 
 
 		socket.on('user_list', (userList) => {
@@ -200,7 +201,7 @@ const Chat = () => {
 							onClick={() => handleChatClick(user, index)} 
 							onMouseEnter={menuHoverSfx}
 						>
-							{user.id}
+							{user.userId}
 						</div>
 					))}
 				</div>
@@ -208,7 +209,7 @@ const Chat = () => {
 				<div className="chatDetails">
 					{selectedChat ? (
 						<>
-							<h5 className="chatTitle">{selectedChat.id}</h5>
+							<h5 className="chatTitle">{selectedChat.userId}</h5>
 							<div className="chatBubbleContainer">
 								{
 								messages

@@ -16,6 +16,8 @@ pub mod crud {
         user_account.username = username;
         user_account.gaming_tag = gaming_tag;
 
+        user_account.entry_id = 0; // Initialize entry_id
+        
         Ok(())
     }
     
