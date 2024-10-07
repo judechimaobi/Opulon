@@ -1,6 +1,6 @@
 
 
-.container {
+.lp-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -10,42 +10,60 @@
   align-items: center;
   flex-direction: column;
   max-width: 50%;
-  max-height: 50%;
-  padding: 20px;
+  height: auto;
+  max-height: 70%;
+  padding: 40px 20px;
   border-radius: 10px;
-  background-color: hsla(219, 71%, 56%, 0.4);
-  border: 3px solid #377dff;
+  background-color: hsla(0, 0%, 0%, 0.7);
+  border: 3px solid #ff7f50;
 }
 
 
 
-.title {
+.lp-title {
     width: 800px;
-    /* background-color: rgb(0, 0, 0, .5); */
     border-radius: 50px;
-    /* padding: 20px; */
     font-size: 72px;
     color: #ffffff;
     text-align: center;
 }
-.title span {
-  color: blueviolet;
-  /* background-color: #ffffff; */
-  color: #8fb6ff;
+.lp-title span {
   border-radius: 20px;
   padding: 10px;
   display: inline-block;
   text-transform: uppercase;
-  letter-spacing: 30px;
-  animation: textTracking 3s linear;
+  letter-spacing: 0;
   text-align: center;
+  font-size: 100px;
+
+  background: linear-gradient(270deg, #ff7f50, #1e90ff, #da00bd);
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientAnimation 3s ease infinite, textTracking 5s linear forwards;
 }
 
 @keyframes textTracking {
   0% {
-    letter-spacing: normal;
+    letter-spacing: 0px;
   }
   100% {
     letter-spacing: 30px;
+  }
+}
+
+
+
+/* Gradient animation keyframes */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

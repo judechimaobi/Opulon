@@ -62,7 +62,15 @@ const Chest = () => {
 						{/* <li>Gaming tag
 							<span>Username</span>
 						</li> */}
-						<li>{sessionStorage.getItem('pubKey')}</li>
+						<li>
+							{
+							sessionStorage.getItem('pubKey') 
+							? `${sessionStorage.getItem('pubKey').slice(0, 5)}....${sessionStorage.getItem('pubKey').slice(-5)}`
+							: ''
+							}
+
+
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -73,15 +81,12 @@ const Chest = () => {
 						<img src={opCoin} alt="OPCoin image" className='opCoin' />
 						<p className="mainItemTitle">1824 OPCoin</p>
 					</div>
-					<div className='colItem'>
+					{/* <div className='colItem'>
 						<h5 className="chestTitle">1824 OPCoin</h5>
-					</div>
+					</div> */}
         </div>
 
 				<div className='col-2'>
-					<div className='colItem'>
-						<h5 className="chestTitle">xp: 54</h5>
-					</div>
 					<div className='colItem'>
 						<h5 className="chestTitle">xp: 54</h5>
 					</div>

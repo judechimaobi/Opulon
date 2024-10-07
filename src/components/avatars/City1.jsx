@@ -1,16 +1,58 @@
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier';
+import { RigidBody, CuboidCollider } from '@react-three/rapier';
 
 export function City1(props) {
   // const { nodes, materials } = useGLTF('models/city_suburbs/scene.gltf');
   const { nodes, materials } = useGLTF('models/city_suburbs.glb');
   return (
-    <RigidBody type='fixed' colliders='ball'>
+    
 
+    // <RigidBody type="fixed"> {/* Ensuring that the colliders don't move */}
+    //   <group dispose={null} rotation={[-Math.PI / 2, 0, 0]} position={[0, -10, 0]}>
+    //     <group>
+    //       {Object.entries(nodes).map(([key, mesh]) => {
+    //       if (mesh.geometry) {
+    //         // Ensure the bounding box is computed
+    //         mesh.geometry.computeBoundingBox();
+    //         const boundingBox = mesh.geometry.boundingBox;
+
+    //         if (boundingBox) {
+    //           const size = [
+    //             boundingBox.max.x - boundingBox.min.x,
+    //             boundingBox.max.y - boundingBox.min.y,
+    //             boundingBox.max.z - boundingBox.min.z,
+    //           ];
+
+    //           const position = [
+    //             (boundingBox.max.x + boundingBox.min.x) / 2,
+    //             (boundingBox.max.y + boundingBox.min.y) / 2,
+    //             (boundingBox.max.z + boundingBox.min.z) / 2,
+    //           ];
+
+    //           return (
+    //             <React.Fragment key={key}>
+    //               <CuboidCollider args={size} position={position} />
+    //               <mesh geometry={mesh.geometry} material={materials[mesh.material]} />
+    //             </React.Fragment>
+    //           );
+    //         }
+    //       }
+    //       // If the geometry is undefined or boundingBox is not available, return null
+    //       return null;
+    //     })}
+    //     </group>
+    //   </group>
+    // </RigidBody>
+
+
+
+
+
+    <RigidBody type='fixed'>
       
-      <group {...props} dispose={null}>
-        <group rotation={[-Math.PI / 2, 0, 0]}>
+      <group dispose={null} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.5, 0]}>
+        <group> 
           <lineSegments geometry={nodes.Object_2.geometry} material={materials.ATLAS} />
           <lineSegments geometry={nodes.Object_3.geometry} material={materials.ATLAS_PROPS} />
           <lineSegments geometry={nodes.Object_4.geometry} material={materials.cristal} />
@@ -170,7 +212,7 @@ export function City1(props) {
           <mesh geometry={nodes.Object_158.geometry} material={materials.cristal} />
         </group>
       </group>
-    </RigidBody>
+    </RigidBody> 
   )
 }
 

@@ -1,18 +1,63 @@
-.videoContainer {
-    /* border-radius: 20px; */
-    /* border: 1px solid #377dff; */
-    /* box-shadow: 10px 10px 10px 10px #222; */
-    z-index: 1000;
+.outerContainer {
+  display: flex;
+  flex-direction: column;
 }
-.video {
-    width: 300px;
-    border-radius: 20px;
+
+  .videoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    /* background-color: #282c34; */
+  }
+  
+  .video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 80%;
+    max-width: 1200px;
+    padding: 20px;
+    /* background-color: #377dff6c; */
+    background-color: rgba(0, 16, 87, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .my-video-col,
+  .incoming-video-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* align-items: center; */
+  }
+  
+  .video {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background-color: rgba(0, 16, 87, 0.7);
     border: 1px solid #377dff;
     /* box-shadow: 10px 10px 10px 10px #222; */
     z-index: 1000;
-}
-.callBtn {
-    width: 200px;
+  }
+  
+  .incoming-call-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+  }
+
+
+  .callBtn,
+  .startCallBtn,
+  .acceptCallBtn {
+    /* width: 200px; */
     padding: 15px;
     background-color: rgb(14, 228, 164);
     border: 1px solid rgb(14, 228, 164);
@@ -23,14 +68,85 @@
     color: rgb(255, 255, 255);
     box-shadow: 0 0 20px rgb(14, 228, 164, 0.8);
     transition: all 0.3s ease;
+    /* margin-bottom: 15px;
+    margin-top: 15px; */
+  }
+  .showIdBtn {
+    padding: 15px;
+    border-radius: 50px;
+    font-family: azonix, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgba(0, 16, 87, 1);
+    transition: all 0.3s ease;
+
+    /* margin-bottom: 15px;
+    margin-top: 15px; */
+    background-color: rgba(223, 188, 71, 1);
+    border: 1px solid rgba(223, 188, 71, 1);
   }
   
-  .callBtn:hover {
+  .callBtn:hover,
+  .startCallBtn:hover,
+  .acceptCallBtn:hover {
     box-shadow: 0 0 30px rgb(14, 228, 164), 0 0 60px rgb(14, 228, 164, 0.8);
     margin-left: 10px;
   }
   
-  .callBtn:active {
+  .callBtn:active,
+  .startCallBtn:active,
+  .acceptCallBtn:active {
     transform: scale(0.95);
     box-shadow: 0 0 10px rgba(223, 188, 71, 0.8), 0 0 20px rgba(223, 188, 71, 0.6);
   }
+
+  .endCallBtn {
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(177, 37, 33);
+    border: 1px solid rgb(196, 62, 57);
+    border-radius: 50px;
+    font-family: azonix, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 20px rgb(14, 228, 164, 0.8);
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  
+  
+  /* .startCallBtn:hover,
+  .acceptCallBtn:hover {
+    background-color: #21a1f1;
+  } */
+  
+  .idInput {
+    /* margin-top: 15px; */
+    padding: 10px;
+    background-color: #377dff6c;
+    font-family: neuropolitical, sans-serif;
+    color: #ffffff;
+    border: 1px solid #377dff;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  button:focus,
+  input:focus {
+    outline: none;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .peerIdMsg {
+    width: 100%;
+    font-size: 10px;
+  }
+  

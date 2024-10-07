@@ -1,0 +1,102 @@
+.qr-title {
+    font-size: 14px;
+    width: 300px;
+    padding: 10px 0px;
+    text-align: center;
+    align-self: center;
+}
+.qr-code-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+}
+.qr-code {
+    align-self: center;
+}
+.verifyBtn {
+    animation: gradientAnimation 3s ease infinite;
+    background: linear-gradient(90deg, #ea00e3, #e99a4e, #242ffc);
+    background-size: 200% 200%;
+    border: none;
+    border-radius: 200px;
+    color: #fff;
+    cursor: pointer;
+    font-family: Neuropolitical;
+    font-size: 12px;
+    padding: 20px 40px;
+    transition: background .5s ease, transform .5s ease;
+  }
+
+  .verifyBtn:hover {
+    -webkit-text-fill-color: #000;
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+  
+  .verifyBtn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(223, 188, 71, 0.8), 0 0 20px rgba(223, 188, 71, 0.6);
+  }
+
+  .btnBox {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 10px;
+	}
+  .verifyBtnOutline {
+		background: transparent;
+		color: #000;
+		border: 1px solid #000;
+	}
+  .loader {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../assets/images/loader2.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  
+  .loader p {
+    text-align: center;
+    color: #fff;
+    
+  }
+  
+  .animated-gradient {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(270deg, #ff7f50, #1e90ff, #32cd32);
+    background-size: 400% 400%;
+    
+    /* Animation properties */
+    animation-duration: 3s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: gradientAnimation;
+  }
+  
+  /* Define the keyframes for the gradient animation */
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }

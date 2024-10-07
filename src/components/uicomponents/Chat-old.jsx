@@ -82,10 +82,14 @@ const Chat = () => {
 			console.log('User connected:' + userId);
 		})
 
-		const truncatedAddress = sessionStorage.getItem('pubKey') 
-		? `${sessionStorage.getItem('pubKey').slice(0, 5)}....${sessionStorage.getItem('pubKey').slice(-5)}`
-		: '';
-		const userData = { id: socket.id, walletAddress: sessionStorage.getItem('pubKey'), userId: truncatedAddress };
+
+
+
+
+
+
+		const userData = { id: socket.id, walletAddress: sessionStorage.getItem('pubKey') };
+
 		socket.emit('user_login', userData); 
 
 		socket.on('user_list', (userList) => {
@@ -97,7 +101,6 @@ const Chat = () => {
 			if (current) {
 				setCurrentUser(current);
 				console.log('Current User Set:', current);  // Debug: log the current user
-				// Remove the current user from list later
 			} else {
 				console.error('Current user not found in user list');
 			}
@@ -177,6 +180,14 @@ const Chat = () => {
     }
   };
 
+	// function addVideoStream(video, stream) {
+  //   video.srcObject = stream 
+  //   video.addEventListener('loadedmetadata', () => { // Play the video as it loads
+  //       video.play()
+  //   })
+  //   videoGrid.append(video) // Append video element to videoGrid
+	// }
+
   return (
     <div className="chatContainer">
 			<h3 className="pageTitle">Chat</h3>
@@ -189,7 +200,7 @@ const Chat = () => {
 							onClick={() => handleChatClick(user, index)} 
 							onMouseEnter={menuHoverSfx}
 						>
-							{user.userId}
+							{user.id}
 						</div>
 					))}
 				</div>
@@ -197,17 +208,25 @@ const Chat = () => {
 				<div className="chatDetails">
 					{selectedChat ? (
 						<>
-							<h5 className="chatTitle">{selectedChat.userId}</h5>
+							<h5 className="chatTitle">{selectedChat.id}</h5>
 							<div className="chatBubbleContainer">
 								{
 								messages
+									// .filter(chat => chat.sender === selectedChat.id || chat.receiver === currentUser.id)  // Filter messages by receiver
+									// .filter(chat => chat.sender === currentUser.id)
+									// .filter(chat => 
+									// 	(chat.sender === selectedChat.id && chat.receiver === currentUser.id) || 
+                  //   (chat.sender === currentUser.id && chat.receiver === selectedChat.id)
+									// )
 									.map((chat) => (
+											// <p key={chat.id} className='chatBubble sender'>{chat.message}</p>
 										chat.sender === selectedChat.id && chat.receiver === currentUser.id ? (
 											<p key={chat.id} className='chatBubble'>{chat.message}</p>
 										) : chat.sender === currentUser.id && chat.receiver === selectedChat.id ? (
 											<p key={chat.id} className='chatBubble sender'>{chat.message}</p>
 										) : null
 								))}
+								
 							</div>
 							
 							<div className='chatFormContainer'>
@@ -226,7 +245,6 @@ const Chat = () => {
 							</div>
 							
 							<VideoChat socket={socket} roomId={selectedChat.id} />
-							{/* <VideoChat socket={socket} roomId={videoChatRoomId} /> */}
 						</>
 					) : (
 						<p>Start Chat</p>
@@ -240,127 +258,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import {useSocket} from './SocketProvider';  // Import the custom hook
-// import './Chat.css';
-// import menuHover from '../../assets/audio/inner-menu-hover.mp3';
-// import menuClick from '../../assets/audio/inner-menu-click.mp3';
-// import btnClick from '../../assets/audio/btn-click.mp3';
-// import VideoChat from './VideoChat';
-
-// const socket = io.connect("http://localhost:3001", {
-// 	reconnection: false,
-//   // autoConnect: false,
-// });
-// const Chat = () => {
-//   const [selectedChat, setSelectedChat] = useState(null);
-//   const [activeTab, setActiveTab] = useState(null);
-//   const [inputMessage, setInputMessage] = useState("");
-  
-//   // Get values from the context
-//   const { users, messages, currentUser, sendPrivateMessage, videoChatRoomId, socket } = useSocket(); 
-
-//   const menuHoverSfx = () => {
-//     const audio = new Audio(menuHover);
-//     audio.play();
-//   };
-
-//   const menuClickSfx = () => {
-//     const audio = new Audio(menuClick);
-//     audio.play();
-//   };
-
-//   const handleChatClick = (user, index) => {
-//     menuClickSfx();
-//     setActiveTab(index);
-//     setSelectedChat(user);
-//   };
-
-//   // Handle socket event for "user-connected"
-//   useEffect(() => {
-//     if (socket?.current) {
-//       socket.current.on('user-connected', userId => {
-//         console.log('User connected: ' + userId);
-//       });
-
-//       // Clean up the event listener when the component unmounts
-//       return () => {
-//         socket.current.off('user-connected');
-//       };
-//     }
-//   }, [socket]);
-
-//   return (
-//     <div className="chatContainer">
-//       <h3 className="pageTitle">Chat</h3>
-//       <div className="chatInnerContainer">
-//         <div className="chatList">
-//           {users.map((user, index) => (
-//             <div 
-//               key={index} 
-//               className={`listItem ${activeTab === index ? 'active' : ''}`} 
-//               onClick={() => handleChatClick(user, index)} 
-//               onMouseEnter={menuHoverSfx}
-//             >
-//               {user.userId}
-//             </div>
-//           ))}
-//         </div>
-
-//         <div className="chatDetails">
-//           {selectedChat ? (
-//             <>
-//               <h5 className="chatTitle">{selectedChat.userId}</h5>
-//               <div className="chatBubbleContainer">
-//                 {
-//                   messages.map((chat) => (
-//                     chat.sender === selectedChat.id && chat.receiver === currentUser.id ? (
-//                       <p key={chat.id} className='chatBubble'>{chat.message}</p>
-//                     ) : chat.sender === currentUser.id && chat.receiver === selectedChat.id ? (
-//                       <p key={chat.id} className='chatBubble sender'>{chat.message}</p>
-//                     ) : null
-//                   ))
-//                 }
-//               </div>
-              
-//               <div className='chatFormContainer'>
-//                 <input 
-//                   type='text' 
-//                   className='messageInput' 
-//                   onChange={(event) => setInputMessage(event.target.value)} 
-//                   value={inputMessage}
-//                 />
-//                 <button 
-//                   className='sendMessageBtn' 
-//                   onClick={() => sendPrivateMessage(selectedChat.id, inputMessage)}
-//                 >
-//                   Send
-//                 </button>
-//               </div>
-              
-//               <VideoChat roomId={selectedChat.id} />
-//             </>
-//           ) : (
-//             <h5 className="chatTitle">Start Chat</h5>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Chat;
-

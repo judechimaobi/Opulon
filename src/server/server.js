@@ -19,7 +19,7 @@ const users = {};
 const rooms = {};
 
 io.on("connection", (socket) => {
-  // console.log(`A User Connected: ${socket.id}`);
+  console.log(`A User Connected: ${socket.id}`);
 
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId); // The current user joins the room
@@ -51,6 +51,35 @@ io.on("connection", (socket) => {
       message: message
     });
   });
+
+
+  // AVATAR LOGIC
+  // Add the new player to the users object
+  users[socket.id] = {
+    id: socket.id,
+    position: { x: 0, y: 0, z: 0 },
+    rotation: { x: 0, y: 0, z: 0 },
+  };
+
+  // Send the current users to the new player
+  socket.emit('currentusers', users);
+
+  // Broadcast to all other clients about the new player
+  socket.broadcast.emit('newPlayer', users[socket.id]);
+
+  // Listen for avatar position/rotation updates
+  socket.on('updateAvatar', (data) => {
+    if (users[socket.id]) {
+      users[socket.id].position = data.position;
+      users[socket.id].rotation = data.rotation;
+
+      // Broadcast updated position/rotation to other users
+      socket.broadcast.emit('updatePlayer', users[socket.id]);
+    }
+  });
+
+
+
 
   // socket.on('join-room', (roomId, userId) => {
   //   if (rooms[roomId]) {

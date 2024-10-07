@@ -21,7 +21,14 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     fallback: {
-      crypto: require.resolve('crypto-browserify'),
+      // "zlib": require.resolve("browserify-zlib"),
+      // "url": require.resolve("url/"),
+      // crypto: require.resolve('crypto-browserify'),
+      // path: require.resolve("path-browserify"),
+      // "vm": false,
+      // "http": false,
+      // "https": false,
+      // "os": false
     },
   },
   plugins: [
