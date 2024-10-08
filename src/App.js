@@ -27,6 +27,7 @@ import BackgroundImage from './components/3d/BackgroundImage.jsx';
 import ReclaimVerification from './components/web3/ReclaimVerification.jsx';
 import FullScreenVideo from './components/uicomponents/FullScreenVideo.jsx';
 import DesktopOnly from './components/uicomponents/DesktopOnly.jsx';
+import Loading from './components/uicomponents/Loading.jsx';
 
 const socket = io();
 
@@ -38,18 +39,14 @@ function App() {
   const network = WalletAdapterNetwork.Devnet; // or WalletAdapterNetwork.Mainnet
   const endpoint = clusterApiUrl(network);
 
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
   // Initialize wallet adapters
   const wallets = [
     // new SolflareWalletAdapter(),
     // new PhantomWalletAdapter()
   ];
-
-  // const bifrostSound = () => {
-  //   const audio = new Audio(bifrostSoundSfx);
-  //   audio.volume = 0.4;
-  //   audio.loop = true;
-  //   audio.play();
-  // };
 
   const handleConnect = useCallback((pubKey) => {
     sessionStorage.setItem('pubKey', pubKey);
@@ -69,7 +66,30 @@ function App() {
     setConnectionState('disconnected');
   }, []);
 
-  
+
+  // Loading Logic
+  useEffect(() => {
+    const loadData = async () => {
+      const totalResources = 15;
+      for (let i = 0; i <= totalResources; i++) {
+        // Simulate loading a resource
+        await new Promise((resolve) => {
+          const randomTime = Math.random() * 1000 + 500;
+          setTimeout(() => {
+            setLoadingProgress(Math.round((i / totalResources) * 100));
+            resolve();
+          }, randomTime);
+        });
+      }
+      setIsLoading(false);
+    };
+
+    loadData();
+  }, []);
+
+  if (isLoading) {
+    return <Loading progress={loadingProgress} />;
+  }
 
   
 
