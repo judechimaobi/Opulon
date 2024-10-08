@@ -26,6 +26,7 @@ import { SocketProvider } from './components/uicomponents/SocketProvider';
 import BackgroundImage from './components/3d/BackgroundImage.jsx';
 import ReclaimVerification from './components/web3/ReclaimVerification.jsx';
 import FullScreenVideo from './components/uicomponents/FullScreenVideo.jsx';
+import DesktopOnly from './components/uicomponents/DesktopOnly.jsx';
 
 const socket = io();
 
@@ -73,7 +74,7 @@ function App() {
   
 
   return (
-    
+    <DesktopOnly>
       <WalletProvider wallets={wallets} autoConnect endpoint={endpoint}>
         <WalletModalProvider>
         <BackgroundImage>
@@ -101,7 +102,7 @@ function App() {
         </BackgroundImage>
         </WalletModalProvider>
       </WalletProvider>
-    
+    </DesktopOnly>    
   );
 }
 
